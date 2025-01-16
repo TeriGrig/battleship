@@ -327,7 +327,7 @@
             // aircraft_carrier
             // 
             this.aircraft_carrier.Image = global::battleship.Properties.Resources.ac;
-            this.aircraft_carrier.Location = new System.Drawing.Point(0, 0);
+            this.aircraft_carrier.Location = new System.Drawing.Point(-4, 3);
             this.aircraft_carrier.Name = "aircraft_carrier";
             this.aircraft_carrier.Size = new System.Drawing.Size(250, 50);
             this.aircraft_carrier.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

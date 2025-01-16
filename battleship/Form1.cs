@@ -12,16 +12,16 @@ namespace battleship
 {
     public partial class Form1 : Form
     {
+        int[] boardSize = new int[11];
+        int[,] shipsPositions = new int[4, 2];
+        List<PictureBox> ships = new List<PictureBox>();
+        bool[,] MyShips = new bool[10, 10];
+        bool ready = false;
+
         public Form1()
         {
             InitializeComponent();
         }
-
-        int[] boardSize = new int[11];
-        int[,] shipsPositions = new int[4, 2];
-        List<PictureBox> ships = new List<PictureBox>();
-        bool[,] shipsPlaced = new bool[10,10];
-        bool ready = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {   //start screen
@@ -46,15 +46,12 @@ namespace battleship
             panel1.Width = 400;
             panel1.Height = 400;
             boardSize[0] = 0;
-            for (int i = 1; i < 11; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 boardSize[i] = boardSize[i - 1] + panel1.Width / 10;
             }
 
-            ships.Add(submarine);
-            ships.Add(battleship);
-            ships.Add(destroyer);
-            ships.Add(aircraft_carrier);
+            ships.Add(submarine); ships.Add(battleship); ships.Add(destroyer); ships.Add(aircraft_carrier);
 
             ToolTip toolTip1 = new ToolTip();
             toolTip1.SetToolTip(submarine, "Άλλαξε κατεύθυνση με δεξί κλικ");
@@ -273,7 +270,7 @@ namespace battleship
             }
         }
 
-        public void Picture_Moving(PictureBox p, int x, int y, bool d, object sender, MouseEventArgs e)
+        private void Picture_Moving(PictureBox p, int x, int y, bool d, object sender, MouseEventArgs e)
         {
             Control c = sender as Control;
 
@@ -284,41 +281,61 @@ namespace battleship
             }
         }
 
-        public void Picture_Dropping(PictureBox p, bool d, int size)
+        private void Picture_Dropping(PictureBox p, bool d, int size)// d peritto
         {
-            //Control c = sender as Control;
+            // when we don't drag the ship
             if (!dragging)
             {
-                for (int i = 0; i < 11; i++)
-                {
-                    for (int j = 0; j < 11; j++)
-                    {
+                // λειπει το y
+                for (int i = 0; i <= 10; i++)
+                    for (int j = 0; j <= 10; j++)
                         if (p.Location.X >= boardSize[i] && p.Location.X < boardSize[i + 1] && p.Location.Y >= boardSize[j] && p.Location.Y < boardSize[j + 1])
-                        {
-                            p.Location = new Point(boardSize[i], boardSize[j]);
-                        }
-                    }
+                            if (i < 11 - size)
+                                lockL(p, i, j, size);
+                            else
+                                for (int k = i - size; k <= size; k++)
+                                    if (i == k + size)
+                                        lockL(p, i - k, j, size);
 
-                    //na mhn kanoun intersect ta ploia
-                    //na mhn bgainoun ektos oriwn
-                    //na ypologizw na einai mesa kai to megethos tou ploiou
-                    
-                    //-----------------------------------------
-                    foreach (PictureBox pb in ships)
-                    {
-                        if (pb != p)
-                        {
-                            if (p.Bounds.IntersectsWith(pb.Bounds))
-                            {//-----------------------------------------
-                                p.Location = new Point(0, 0);
-                            }
-                        }
-                    }
+                //na mhn kanoun intersect ta ploia
+                //na mhn bgainoun ektos oriwn
+                //na ypologizw na einai mesa kai to megethos tou ploiou
 
-                    shipsPositions[size - 2, 0] = p.Location.X;
-                    shipsPositions[size - 2, 1] = p.Location.Y;
-                }
+                //-----------------------------------------
+
+
+                //shipsPositions[size - 2, 0] = p.Location.X;
+                //shipsPositions[size - 2, 1] = p.Location.Y;
             }
+        }
+
+        private void lockL(PictureBox p, int x, int y, int size)
+        {
+            if (!MyShips[x, y])
+            {
+                for (int i = x; i < size + x; i++)
+                    MyShips[y, i] = true;
+                p.Location = new Point(boardSize[x], boardSize[y]);
+            }
+            print();
+        }
+
+        private void print()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    string x = " ";
+                    if (MyShips[i, j])
+                        x = "1";
+                    else
+                        x = " ";
+                    Console.Write(x + "|");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("\n\n\n\n");
         }
     }
 }
