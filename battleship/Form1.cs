@@ -13,7 +13,6 @@ namespace battleship
     public partial class Form1 : Form
     {
         int[] boardSize = new int[11];
-        int[,] shipsPositions = new int[4, 2];
         List<PictureBox> ships = new List<PictureBox>();
         bool[,] MyShips = new bool[10, 10];
         bool ready = false;
@@ -70,7 +69,7 @@ namespace battleship
             aircraft_carrier.Visible = false;
         }
 
-        //selection of each ship
+        //selection of each ship        
         private void s_image_Click(object sender, EventArgs e)
         {
             submarine.Visible = true;
@@ -114,11 +113,6 @@ namespace battleship
                 if (bb) battleship.Image = Properties.Resources.b_vertical;
                 else battleship.Image = Properties.Resources.b;
             }
-            else if (e.Button == MouseButtons.Left)
-            {
-
-            }
-
         }
 
         bool db = false;
@@ -130,10 +124,6 @@ namespace battleship
                 changeShipSize(destroyer);
                 if (db) destroyer.Image = Properties.Resources.d_vertical;
                 else destroyer.Image = Properties.Resources.d;
-            }
-            else if (e.Button == MouseButtons.Left)
-            {
-
             }
         }
 
@@ -147,10 +137,6 @@ namespace battleship
                 if (ab) aircraft_carrier.Image = Properties.Resources.ac_vertical;
                 else aircraft_carrier.Image = Properties.Resources.ac;
             }
-            else if (e.Button == MouseButtons.Left)
-            {
-
-            }
         }
 
         //change of size of each ship
@@ -159,7 +145,68 @@ namespace battleship
             p.Size = new Size(p.Size.Height, p.Size.Width);
         }
 
-        //clear all button
+
+        //moving of each ship       
+        bool dragging = false;
+        int x, y;             
+
+        private void Picture_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                dragging = true;
+                x = e.X;
+                y = e.Y;
+            }
+        }
+
+        private void Picture_MouseMove(object sender, MouseEventArgs e)
+        {
+            Control c = sender as Control;
+
+            if (dragging && c != null)
+            {
+                c.Top += e.Y - y;
+                c.Left += e.X - x;
+            }
+        }
+
+        private void Picture_MouseUp(object sender, MouseEventArgs e)
+        {
+            PictureBox p = sender as PictureBox;
+            dragging = false;
+            int size = 5;// ua allajei
+            // when we don't drag the ship
+            if (!dragging)
+            {
+                // λειπει το y
+                for (int i = 0; i <= 10; i++)
+                    for (int j = 0; j <= 10; j++)
+                        if (p.Location.X >= boardSize[i] && p.Location.X < boardSize[i + 1] && p.Location.Y >= boardSize[j] && p.Location.Y < boardSize[j + 1])
+                            if (i < 11 - size)
+                                lockL(p, i, j, size);
+                            else
+                                for (int k = i - size; k <= size; k++)  
+                                    if (i == k + size)
+                                        lockL(p, i - k, j, size);
+
+                //na mhn kanoun intersect ta ploia
+                //na mhn bgainoun ektos oriwn
+                //na ypologizw na einai mesa kai to megethos tou ploiou                
+            }
+        }
+        private void lockL(PictureBox p, int x, int y, int size)
+        {
+            if (!MyShips[x, y])
+            {
+                for (int i = x; i < size + x; i++)
+                    MyShips[y, i] = true;
+                p.Location = new Point(boardSize[x], boardSize[y]);
+            }
+            print();
+        }
+
+        //clear all ships button
         private void Clear_Btn_Click(object sender, EventArgs e)
         {
             submarine.Visible = false;
@@ -183,142 +230,6 @@ namespace battleship
             }
         }
 
-        //moving of each ship       
-        bool dragging = false;
-        int x, y;
-        private void submarine_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-            Picture_Dropping(submarine, dragging, 2);
-        }
-
-        private void submarine_MouseMove(object sender, MouseEventArgs e)
-        {
-            Picture_Moving(submarine, x, y, dragging, sender, e);
-        }
-
-        private void submarine_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                dragging = true;
-                x = e.X;
-                y = e.Y;
-            }
-        }
-
-        private void battleship_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-            Picture_Dropping(battleship, dragging, 3);
-        }
-
-        private void battleship_MouseMove(object sender, MouseEventArgs e)
-        {
-            Picture_Moving(battleship, x, y, dragging, sender, e);
-        }
-
-        private void battleship_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                dragging = true;
-                x = e.X;
-                y = e.Y;
-            }
-        }
-
-        private void destroyer_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-            Picture_Dropping(destroyer, dragging, 4);
-        }
-
-        private void destroyer_MouseMove(object sender, MouseEventArgs e)
-        {
-            Picture_Moving(destroyer, x, y, dragging, sender, e);
-        }
-
-        private void destroyer_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                dragging = true;
-                x = e.X;
-                y = e.Y;
-            }
-        }
-
-        private void aircraft_carrier_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-            Picture_Dropping(aircraft_carrier, dragging, 5);
-        }
-
-        private void aircraft_carrier_MouseMove(object sender, MouseEventArgs e)
-        {
-            Picture_Moving(aircraft_carrier, x, y, dragging, sender, e);
-        }
-
-        private void aircraft_carrier_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                dragging = true;
-                x = e.X;
-                y = e.Y;
-            }
-        }
-
-        private void Picture_Moving(PictureBox p, int x, int y, bool d, object sender, MouseEventArgs e)
-        {
-            Control c = sender as Control;
-
-            if (dragging && c != null)
-            {
-                c.Top += e.Y - y;
-                c.Left += e.X - x;
-            }
-        }
-
-        private void Picture_Dropping(PictureBox p, bool d, int size)// d peritto
-        {
-            // when we don't drag the ship
-            if (!dragging)
-            {
-                // λειπει το y
-                for (int i = 0; i <= 10; i++)
-                    for (int j = 0; j <= 10; j++)
-                        if (p.Location.X >= boardSize[i] && p.Location.X < boardSize[i + 1] && p.Location.Y >= boardSize[j] && p.Location.Y < boardSize[j + 1])
-                            if (i < 11 - size)
-                                lockL(p, i, j, size);
-                            else
-                                for (int k = i - size; k <= size; k++)
-                                    if (i == k + size)
-                                        lockL(p, i - k, j, size);
-
-                //na mhn kanoun intersect ta ploia
-                //na mhn bgainoun ektos oriwn
-                //na ypologizw na einai mesa kai to megethos tou ploiou
-
-                //-----------------------------------------
-
-
-                //shipsPositions[size - 2, 0] = p.Location.X;
-                //shipsPositions[size - 2, 1] = p.Location.Y;
-            }
-        }
-
-        private void lockL(PictureBox p, int x, int y, int size)
-        {
-            if (!MyShips[x, y])
-            {
-                for (int i = x; i < size + x; i++)
-                    MyShips[y, i] = true;
-                p.Location = new Point(boardSize[x], boardSize[y]);
-            }
-            print();
-        }
 
         private void print()
         {

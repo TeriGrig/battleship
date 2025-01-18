@@ -126,7 +126,6 @@
             // 
             // d_image
             // 
-            this.d_image.Image = global::battleship.Properties.Resources.d;
             this.d_image.Location = new System.Drawing.Point(24, 316);
             this.d_image.Name = "d_image";
             this.d_image.Size = new System.Drawing.Size(180, 40);
@@ -146,7 +145,6 @@
             // 
             // b_image
             // 
-            this.b_image.Image = global::battleship.Properties.Resources.b;
             this.b_image.Location = new System.Drawing.Point(24, 230);
             this.b_image.Name = "b_image";
             this.b_image.Size = new System.Drawing.Size(135, 40);
@@ -166,7 +164,6 @@
             // 
             // s_image
             // 
-            this.s_image.Image = global::battleship.Properties.Resources.s;
             this.s_image.Location = new System.Drawing.Point(24, 149);
             this.s_image.Name = "s_image";
             this.s_image.Size = new System.Drawing.Size(90, 40);
@@ -186,7 +183,6 @@
             // 
             // ac_image
             // 
-            this.ac_image.Image = global::battleship.Properties.Resources.ac;
             this.ac_image.Location = new System.Drawing.Point(24, 413);
             this.ac_image.Name = "ac_image";
             this.ac_image.Size = new System.Drawing.Size(225, 40);
@@ -270,7 +266,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel1.BackgroundImage = global::battleship.Properties.Resources.Στιγμιότυπο_οθόνης_2025_01_12_195630;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.submarine);
@@ -284,7 +279,6 @@
             // 
             // submarine
             // 
-            this.submarine.Image = global::battleship.Properties.Resources.s;
             this.submarine.Location = new System.Drawing.Point(0, 0);
             this.submarine.Name = "submarine";
             this.submarine.Size = new System.Drawing.Size(100, 50);
@@ -292,13 +286,12 @@
             this.submarine.TabIndex = 29;
             this.submarine.TabStop = false;
             this.submarine.MouseClick += new System.Windows.Forms.MouseEventHandler(this.submarine_MouseClick);
-            this.submarine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.submarine_MouseDown);
-            this.submarine.MouseMove += new System.Windows.Forms.MouseEventHandler(this.submarine_MouseMove);
-            this.submarine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.submarine_MouseUp);
+            this.submarine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseDown);
+            this.submarine.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseMove);
+            this.submarine.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseUp);
             // 
             // battleship
             // 
-            this.battleship.Image = global::battleship.Properties.Resources.b;
             this.battleship.Location = new System.Drawing.Point(0, 0);
             this.battleship.Name = "battleship";
             this.battleship.Size = new System.Drawing.Size(150, 50);
@@ -306,13 +299,12 @@
             this.battleship.TabIndex = 30;
             this.battleship.TabStop = false;
             this.battleship.MouseClick += new System.Windows.Forms.MouseEventHandler(this.battleship_MouseClick);
-            this.battleship.MouseDown += new System.Windows.Forms.MouseEventHandler(this.battleship_MouseDown);
-            this.battleship.MouseMove += new System.Windows.Forms.MouseEventHandler(this.battleship_MouseMove);
-            this.battleship.MouseUp += new System.Windows.Forms.MouseEventHandler(this.battleship_MouseUp);
+            this.battleship.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseDown);
+            this.battleship.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseMove);
+            this.battleship.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseUp);
             // 
             // destroyer
             // 
-            this.destroyer.Image = global::battleship.Properties.Resources.d;
             this.destroyer.Location = new System.Drawing.Point(0, 0);
             this.destroyer.Name = "destroyer";
             this.destroyer.Size = new System.Drawing.Size(200, 50);
@@ -320,13 +312,12 @@
             this.destroyer.TabIndex = 31;
             this.destroyer.TabStop = false;
             this.destroyer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.destroyer_MouseClick);
-            this.destroyer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.destroyer_MouseDown);
-            this.destroyer.MouseMove += new System.Windows.Forms.MouseEventHandler(this.destroyer_MouseMove);
-            this.destroyer.MouseUp += new System.Windows.Forms.MouseEventHandler(this.destroyer_MouseUp);
+            this.destroyer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseDown);
+            this.destroyer.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseMove);
+            this.destroyer.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseUp);
             // 
             // aircraft_carrier
             // 
-            this.aircraft_carrier.Image = global::battleship.Properties.Resources.ac;
             this.aircraft_carrier.Location = new System.Drawing.Point(-4, 3);
             this.aircraft_carrier.Name = "aircraft_carrier";
             this.aircraft_carrier.Size = new System.Drawing.Size(250, 50);
@@ -334,15 +325,14 @@
             this.aircraft_carrier.TabIndex = 32;
             this.aircraft_carrier.TabStop = false;
             this.aircraft_carrier.MouseClick += new System.Windows.Forms.MouseEventHandler(this.aircraft_carrier_MouseClick);
-            this.aircraft_carrier.MouseDown += new System.Windows.Forms.MouseEventHandler(this.aircraft_carrier_MouseDown);
-            this.aircraft_carrier.MouseMove += new System.Windows.Forms.MouseEventHandler(this.aircraft_carrier_MouseMove);
-            this.aircraft_carrier.MouseUp += new System.Windows.Forms.MouseEventHandler(this.aircraft_carrier_MouseUp);
+            this.aircraft_carrier.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseDown);
+            this.aircraft_carrier.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseMove);
+            this.aircraft_carrier.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Picture_MouseUp);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::battleship.Properties.Resources.w;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1171, 599);
             this.Controls.Add(this.panel2);

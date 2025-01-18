@@ -131,8 +131,5 @@
   <ItemGroup>
     <None Include="Resources\Στιγμιότυπο οθόνης 2025-01-16 133226.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Στιγμιότυπο οθόνης 2025-01-16 133321.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
